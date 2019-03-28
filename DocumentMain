@@ -1,11 +1,17 @@
 Trek
+https://github.com/V-Radu/Trek.git
+
 e-commerce site.
-sells bicycle parts,
+sells bicycles, scooters, unicycles ,
 
 Three main Categories
   1 Electric bicycles
   2 Combustion engine bicycle
   3 Conventional bicycle
+  4 Unicycles
+  5 Scooters
+
+
 
 Sub-Categories
   1 Casual
@@ -13,6 +19,7 @@ Sub-Categories
   3 Racing
   4 City commuter
   5 Special Designer
+
 
 Customer Type
   1 Gender Male/Female/Unisex
