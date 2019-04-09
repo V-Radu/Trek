@@ -2,10 +2,11 @@
 <html lang="en" dir="lir"
 
 <body>
-<h2>Access
-<?php
-echo " Denied".$_GET['newusername']
-
-?><h2>
-
+  <a href="/trek/index.html"><img src="/trek/images/logoSmall115.png" alt="treck logo"></a>
+  <h2>Access
+  <?php
+    echo " Denied ";
+    $username = $_POST['newusername'];
+    echo $username;
+  ?><h2>
 </body
