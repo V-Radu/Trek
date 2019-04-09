@@ -38,5 +38,3 @@ def shut_down():
 		raise RuntimeError('Not running with the Werkzeug Server')
 	func()
 	return 'Server shutting down...'
-
-server.shutdown()
