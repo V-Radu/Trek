@@ -18,7 +18,7 @@
       echo "Username not alfa numberic";
     }
 
-    
+
     $query = "insert into users(userName,userpass,userEmail) values('$cleanUname','$_POST[newuserpass]','$_POST[newuseremail]')";
     $result = $conn->query($query);
 
