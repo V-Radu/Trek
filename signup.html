@@ -7,14 +7,14 @@
 <body>
 <h2>Welcome to Trek</h2>
 
-<form action="src/backend/signup.php" method="post">
+<form action="/trek/src/backend/signup.php" method="post">
   <input type="text" name="newusername" value="NewUsername"></input>
   <br>
   <input id="newPass" type="password" name="newuserpass" value="Password"></input>
   <br>
-  <input id="confirmPass" type="password" name="newuserconfirmpass"></input>
+  <input id="confirmPass" type="password"></input>
   <br>
-  <input type="email" value=myemail@someserver.com>
+  <input type="email" name="newuseremail" value="newuser@email.com"></input>
   <br>
 <button type="submit">Submit</button>
 </form>
