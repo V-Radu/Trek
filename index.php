@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -17,7 +20,17 @@
 </head>
 
 <body>
-
+	<!-- Check session -->
+	<?php
+		if( isset($_SESSION['ERRMSG_ARR']) && is_array($_SESSION['ERRMSG_ARR']) && count($_SESSION['ERRMSG_ARR']) >0 ) {
+			echo '<ul class="err">';
+			foreach($_SESSION['ERRMSG_ARR'] as $msg) {
+				echo '<li>',$msg,'</li>';
+			}
+			echo '</ul>';
+			unset($_SESSION['ERRMSG_ARR']);
+		}
+	?>
 
   <!-- ****************************HEADER*********************************** -->
   <!-- Header -->
@@ -36,19 +49,19 @@
 
       <!-- LogIn and Sign Up buttons -->
       <div class="col-3" align="center">
-
-          <button type="submit" class="btn btn-secondary modalBtn">Login</button>
+					<!-- first modalBtn class is for login second is for sign up, check script below -->
+          <button class="btn btn-secondary modalBtn">Login</button>
           <!-- Modal for login form -->
           <div class="modal myModal">
             <div class="modal-content">
               <span class="close">&times;</span>
               <h1>My first PHP page</h1>
-              <form action="/trek/index.html" method="get">
+              <form action="/trek/src/backend/loginexec.php" method="post">
                 <input type="text" name="username" value="Username"></input>
                 </br>
                 <input type="password" name="password" value="Password"></input>
                 </br>
-                <button type="submit" class="btn btn-secondary">Back</button>
+                <button type="submit" class="btn btn-secondary">Log In</button>
               </form>
             </div>
           </div>
@@ -63,13 +76,16 @@
               <h2>Welcome to Trek</h2>
 
               <form action="/trek/src/backend/signup.php" method="post">
-                <input type="text" name="newusername" value="NewUsername"></input>
+                <input type="text" name="fname" value="First Name"></input>
+								<input type="text" name="lname" value="Last Name"></input>
                 <br>
-                <input id="newPass" type="password" name="newuserpass" value="Password"></input>
+								<input type="text" name="uname" value="User Name"></input>
+								<br>
+                <input id="newPass" type="password" name="upass" value="Password"></input>
                 <br>
-                <input id="confirmPass" type="password"></input>
+                <input id="confirmPass" type="password" name="cupass" value="Password"></input>
                 <br>
-                <input type="email" name="newuseremail" value="newuser@email.com"></input>
+                <input type="email" name="uemail" value="newuser@email.com"></input>
                 <br>
               <button type="submit">Submit</button>
             </div>
