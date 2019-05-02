@@ -16,7 +16,7 @@
     <!-- My CSS -->
 	  <link rel="stylesheet" href="/trek/src/frontend/css/style.css" type="text/css">
 
-    <title>Treck</title>
+    <title>Treck Member's Page</title>
 </head>
 
 <body>
@@ -39,6 +39,7 @@
       <!-- Logo place -->
       <div class="col-3 logoCell">
         <a href="/trek/src/frontend/memberpage.php"><img src="/trek/images/logoSmall115.png" alt="treck logo"></a>
+				<p style="color:white">Welcome <?php echo $_SESSION['UNAME'] ?> </p>
       </div>
 
       <!-- Title -->
@@ -49,13 +50,14 @@
 
       <!-- LogIn and Sign Up buttons -->
       <div class="col-3" align="center">
-					<!-- first modalBtn class is for login second is for sign up, check script below -->
-          <button class="btn btn-secondary modalBtn"><?php echo $_SESSION['UNAME']?></button>
+					<!-- first modalBtn class is for adding new item for sale, check script below -->
+          <button class="btn btn-secondary modalBtn">Sell Item</button>
 
+					<!-- button to view account details for the currently loged in user-->
+          <button class="btn btn-secondary modalBtn">Account</button>
 
-          <button class="btn btn-secondary modalBtn"><?php echo $_SESSION['SESS_LNAME']?></button>
-
-
+					<!-- to logout and desplay the home page -->
+					<button class="btn btn-secondary modalBtn" onclick="window.location.href='/trek/src/backend/logout.php';" type="button">Log Out</button>
       </div>
     </div>
   </div>
@@ -308,6 +310,8 @@
         }
         }
       </script>
+
+
 
 
     </body>

@@ -1,9 +1,9 @@
 
 <?php
   session_start();
-  echo'<a href="/trek/index.html"><img src="/trek/images/logoSmall115.png" alt="treck logo"></a>';
+  //echo'<a href="/trek/index.html"><img src="/trek/images/logoSmall115.png" alt="treck logo"></a>';
   require_once('../database/config.php');
-  print_r($_POST);
+  //print_r($_POST);
   $conn = new mysqli($hn, $un, $pw, $db);
   if ($conn->connect_error)die($conn->connect_error);
 
@@ -21,6 +21,7 @@
   $email = clean($_POST['uemail'],$conn);
 	$password = clean($_POST['upass'],$conn);
 	$cpassword = clean($_POST['cupass'],$conn);
+  $address = clean($_POST['uaddress'],$conn);
 
 	//Input Validations
 	if($fname == '') {
@@ -51,19 +52,31 @@
     $errmsg_arr[]= 'Email missing';
     $errflag = true;
   }
+  if($address == ''){
+    $errmsg_arr[]= 'Address missing';
+    $errflag = true;
+  }
 
-  //If there are input validations, redirect back to the registration form
+  //If the input is invalid, redirect back to the registration form
 	if($errflag) {
 		$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
 		session_write_close();
-		header("location: /trek/index.php");
+		header("Location: /trek/index.php");
 		exit();
 	}
 
-  $query = "INSERT INTO users(fname,lname,uname,email,upass) VALUES('$fname','$lname','$login','$email','".md5($_POST['upass'])."')";
+  //Insert new user registration data to the database
+  $query = "INSERT INTO users(fname,lname,uname,email,upass,address) VALUES('$fname','$lname','$login','$email','".md5($_POST['upass'])."','$address')";
   $result = $conn->query($query);
+
+  //UserID and user name are the primary key of shopping carts
+  $query = "SELECT userID FROM users WHERE uname='$login';";
+  $result = $conn->query($query);
+
+
 
   if(!$result)echo'"Insert failed: $query<br>" .$conn->error ."<br><br>"';
   $conn->close();
-  echo'"<a href="/trek/index.php"><button>BACK</button></a>"'
+  header("Location: /trek/index.php");
+  
 ?>

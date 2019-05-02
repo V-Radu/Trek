@@ -55,7 +55,7 @@
           <div class="modal myModal">
             <div class="modal-content">
               <span class="close">&times;</span>
-              <h1>My first PHP page</h1>
+              <h1>Welcome to Trek</h1>
               <form action="/trek/src/backend/loginexec.php" method="post">
                 <input type="text" name="username" value="Username"></input>
                 </br>
@@ -67,7 +67,7 @@
           </div>
 
 
-          <button class="btn btn-secondary modalBtn">SignUp</button>
+          <button id="signupBtn" class="btn btn-secondary modalBtn">SignUp</button>
           <!-- Modal sign up form -->
           <div class="modal myModal">
             <!-- Modal content -->
@@ -75,7 +75,7 @@
               <span class="close">&times;</span>
               <h2>Welcome to Trek</h2>
 
-              <form action="/trek/src/backend/signup.php" method="post">
+              <form  id="regForm"method="post">
                 <input type="text" name="fname" value="First Name"></input>
 								<input type="text" name="lname" value="Last Name"></input>
                 <br>
@@ -85,9 +85,11 @@
                 <br>
                 <input id="confirmPass" type="password" name="cupass" value="Password"></input>
                 <br>
-                <input type="email" name="uemail" value="newuser@email.com"></input>
+                <input id="emailField" type="email" name="uemail" value="newuser@email.com"></input>
                 <br>
-              <button type="submit">Submit</button>
+								<input type="text" name="uaddress" value="billing address"></input>
+								<br>
+              <button id="submitBtn" class="btn btn-primary">Submit</button>
             </div>
           </div>
 
@@ -330,7 +332,26 @@
     }
     btnSignUp.onclick = function() {
     modalSignUp.style.display = "block";
-    }
+		}
+
+		//Check if the email is valid, then allow the submit button
+		const emailField = document.getElementById("emailField");
+		emailField.addEventListener('keyup', function(event){
+			var isValidEmail = emailField.checkValidity();
+				if (isValidEmail){
+					document.getElementById("submitBtn").disabled = false;
+				}else{
+					document.getElementById("submitBtn").disabled = true;
+				}
+		})
+
+		// When button is clicked submit the validated  registration form
+		const regForm = document.getElementById("regForm");
+		const submitBtn = document.getElementById("submitBtn");
+		submitBtn.addEventListener('click', function(event){
+			regForm.action("/trek/src/backend/signup.php");
+			regForm.submit();
+		})
 
     // When the user clicks on <span> (x), close the modal
     spanLogIn.onclick = function() {
@@ -347,7 +368,9 @@
       modalSignUp.style.display = "none";
     }
     }
+
   </script>
+
 
 
 </body>

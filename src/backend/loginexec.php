@@ -38,7 +38,7 @@
   if($errflag){
     $_SESSION['ERRMSG_ARR']=$errmsg_arr;
     session_write_close();
-    header('location: /trek/index.php');
+    header('Location: /trek/index.php');
     exit();
   }
 
@@ -63,10 +63,9 @@
   }else{
     //Login failed
     //header('location: /trek/index.php');
-    echo $hashpass;
-    echo"Login failed";
-    $sql = $result->fetch_array(MYSQLI_ASSOC);
-    echo$sql;
+
+    header('location: /trek/index.php');
+    
     exit();
   }
 ?>
