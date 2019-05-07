@@ -10,13 +10,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <!-- My CSS -->
 	  <link rel="stylesheet" href="/trek/src/frontend/css/style.css" type="text/css">
 
-    <title>Treck Member's Page</title>
+
+    <title>Trek Member's Page</title>
 </head>
 
 <body>
@@ -51,7 +53,7 @@
       <!-- LogIn and Sign Up buttons -->
       <div class="col-3" align="center">
 					<!-- first modalBtn class is for adding new item for sale, check script below -->
-          <button class="btn btn-secondary modalBtn">Sell Item</button>
+          <button id="newProductBtn" type="button" class="btn btn-secondary modalBtn" onclick="newProductForm()" >Sell Item</button>
 
 					<!-- button to view account details for the currently loged in user-->
           <button class="btn btn-secondary modalBtn">Account</button>
@@ -140,7 +142,28 @@
     </div>
 
 
+		<!-- ************************ Add new Product for sale form ************** -->
 
+		<div class="container ">
+				<form id="newProductForm">
+					<label for="categories" >Select Category</label>
+						<select name="categories">
+							<option value="city bike">City Bike</option>
+							<option value="electric">Electric Bikes</option>
+							<option value="racing">Racing</option>
+							<option value="unicycle">Unicycle</option>
+							<option value="mountain bike">Mountain Bike</option>
+						</select>
+						<p>upload photo </p>
+						<input type="file" id="#photofile" name="photofile" multiple></input>
+						<br>
+						<textarea name="itemDescription" rows="3" cols="30">Item for sale description....</textarea>
+						<br>
+					 	<lable for="itemprice" >Selling price</label>
+						<input type="text field" name="itemprice">100 </input><p>&euro</p>
+						<input type="submit" class="btn btn-primary" value="Submit Item">
+				</form>
+		</div>
     <!-- **********************SUBCATEGORIES PRODUCTS************************* -->
 
     <!-- Main Content with Categories -->
@@ -219,7 +242,7 @@
           </div>
         </div>
       </div>
-
+		</div>
 
 
       <!-- *****************************FOOTER********************************** -->
@@ -231,18 +254,6 @@
 
 
       <!-- *****************************SCRIPTS********************************* -->
-
-      <!-- Script to open and close categories bar -->
-      <script>
-
-        function openSidepanel() {
-          document.getElementById("categoriesSidepanel").style.width = "250px";
-        }
-
-        function closeSidepanel() {
-          document.getElementById("categoriesSidepanel").style.width = "0px";
-        }
-      </script>
 
       <!-- Panoramic Sliding show/ Carousel -->
       <script>
@@ -274,41 +285,26 @@
         }
       </script>
 
-      <!-- Signup modal and Login modal-->
-      <script>
-        // Get the modal
-        var modalLogIn = document.getElementsByClassName('myModal')[0];
-        var modalSignUp = document.getElementsByClassName('myModal')[1];
-        // Get the button that opens the modal
-        var btnLogIn = document.getElementsByClassName("modalBtn")[0];
-        var btnSignUp = document.getElementsByClassName("modalBtn")[1];
-        // Get the <span> element that closes the modal
-        var spanLogIn = document.getElementsByClassName("close")[0];
-        var spanSignUp = document.getElementsByClassName("close")[1];
+      <!-- Add new Product for sale form-->
+      <script type="text/javascript">
+			$(document).ready(
+			function (){
+				$("#newProductForm").hide();
+			})
+			//When add new product button is clicked
+			function newProductForm(){
+				$("#newProductForm").show();
+				$("#panoramicSlideshow").hide();
+				$("#newProductForm").on('submit', function(){
+					var photo_data = $('#photofile').prop('files')[0];
+					window.alert("Text file");
+					//$("#newProductForm").hide();
+					//$("#panoramicSlideshow").show();
+				})
+			}
 
-        // When the user clicks on the button, open the modal
-        btnLogIn.onclick = function() {
-        modalLogIn.style.display = "block";
-        }
-        btnSignUp.onclick = function() {
-        modalSignUp.style.display = "block";
-        }
+			//After new product form is submitted
 
-        // When the user clicks on <span> (x), close the modal
-        spanLogIn.onclick = function() {
-        modalLogIn.style.display = "none";
-        }
-        spanSignUp.onclick = function() {
-        modalSignUp.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-        if (event.target == modal) {
-          modalLogIn.style.display = "none";
-          modalSignUp.style.display = "none";
-        }
-        }
       </script>
 
 

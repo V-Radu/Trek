@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <!-- My CSS -->
@@ -76,18 +77,20 @@
               <h2>Welcome to Trek</h2>
 
               <form  id="regForm"method="post">
-                <input type="text" name="fname" value="First Name"></input>
-								<input type="text" name="lname" value="Last Name"></input>
+                <input type="text" name="fname" value="First Name" required  pattern="[A-Za-z]+"></input>
+								<input type="text" name="lname" value="Last Name" required  pattern="[A-Za-z]+"></input>
                 <br>
-								<input type="text" name="uname" value="User Name"></input>
+								<input id="unamereg"type="text" name="uname" value="User Name" required ></input>
+								<span id="usrnamecheck"></span>
 								<br>
-                <input id="newPass" type="password" name="upass" value="Password"></input>
+                <input id="newPass" type="password" name="upass" value="Password" required></input>
                 <br>
-                <input id="confirmPass" type="password" name="cupass" value="Password"></input>
+                <input id="confirmPass" type="password" name="cupass" value="Password" required></input>
                 <br>
-                <input id="emailField" type="email" name="uemail" value="newuser@email.com"></input>
+                <input id="emailField" type="email" name="uemail" value="newuser@email.com" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]+"></input>
+
                 <br>
-								<input type="text" name="uaddress" value="billing address"></input>
+								<input type="text" name="uaddress" value="billing address" required></input>
 								<br>
               <button id="submitBtn" class="btn btn-primary">Submit</button>
             </div>
@@ -334,14 +337,14 @@
     modalSignUp.style.display = "block";
 		}
 
-		//Check if the email is valid, then allow the submit button
-		const emailField = document.getElementById("emailField");
-		emailField.addEventListener('keyup', function(event){
-			var isValidEmail = emailField.checkValidity();
-				if (isValidEmail){
-					document.getElementById("submitBtn").disabled = false;
+		//Check if the passwords entered mach.
+		const confirmPass = document.getElementById("confirmPass");
+		confirmPass.addEventListener('keyup', function(event){
+				//Check confirmation password mach
+				if (document.getElementById('newPass').value==confirmPass.value){
+					document.getElementById('submitBtn').disabled = false;
 				}else{
-					document.getElementById("submitBtn").disabled = true;
+					document.getElementById('submitBtn').disabled = true;
 				}
 		})
 
@@ -370,6 +373,26 @@
     }
 
   </script>
+
+	<!-- jQuery script to check if the username already exists in the Database -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#unamereg").keyup(function(){
+				//Check if username is in database then write to label
+
+				 $.get("/trek/src/database/checkUsername.php",{usr:$("#unamereg").val()},function(usrnameExist){
+
+					 if(usrnameExist > 0){
+						 //set warning label
+						 $("#usrnamecheck").text("User name Exists");
+					 }else{
+						  $("#usrnamecheck").text("User name Available");
+					 }
+				 });
+
+			});
+		});
+	</script>
 
 
 

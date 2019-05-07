@@ -4,16 +4,36 @@
 <head>
   <meta charset="utf-8">
   <title>Login Trek</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script type="text/javascript">
+		$(document).ready(function(){
+			$("#unamereg").keyup(function(){
+				//Check if username is in database then write to label
+
+				 $.get("/trek/src/database/checkUsername.php",{usr:$("#unamereg").val()},function(usrnameExist){
+
+					 if(usrnameExist > 0){
+						 //set warning label
+						 $("#usrnamecheck").text("User name Exists");
+					 }else{
+						  $("#usrnamecheck").text("User name Available");
+					 }
+				 });
+
+			});
+		});
+	</script>
 </head>
 <body>
 
 <h1>My first PHP page</h1>
-<form action="index.html" method="get">
-  <input type="text" name="username" value="Username"></input>
+<form  method="get">
+  <input id="unamereg"type="text" name="username" value="Username"></input>
+  <span id="usrnamecheck"></span>;
   </br>
   <input type="password" name="password" value="Password"></input>
   </br>
-  <button type="submit" class="btn btn-secondary">Back</button>
+  <button  class="btn btn-secondary">Back</button>
 </form>
 
 <script>
